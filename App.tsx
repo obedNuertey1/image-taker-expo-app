@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 // @ts-ignore
 import PlaceHolderImage from "./assets/images/background-image.png";
 import ImageViewer from "./components/ImageViewer";
 import Button from "./components/Button";
 import * as ImagePicker from "expo-image-picker";
+import "./styles/tailwind.css"
 
 export default function App(){
   const pickImageAsync = async () => {
@@ -12,6 +13,7 @@ export default function App(){
       allowsEditing: true, quality: 1
     })
 
+    console.log("Hello World")
     if(!result.canceled){
       console.log(result);
     }else{
@@ -25,8 +27,8 @@ export default function App(){
       <View className="flex-[1] pt-[58px]">
         <ImageViewer placeholderImage={PlaceHolderImage} />
       </View>
-      <View className="flex-[1/3] flex-col h-1/3 items-center justify-center">
-        <Button theme="primary" label="Choose a photo" />
+      <View className={`flex-[1/3] flex-col items-center justify-center`}>
+        <Button onPress={pickImageAsync} theme="primary" label="Choose a photo" />
         <Button label="Use this photo" />
       </View>
       <StatusBar style="light" />
