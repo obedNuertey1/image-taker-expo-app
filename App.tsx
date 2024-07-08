@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
+// @ts-ignore
+import PlaceHolderImage from "./assets/images/background-image.png";
+import ImageViewer from "./components/ImageViewer";
 
-export default function App() {
+export default function App(){
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View className="flex flex-1 bg-[#25292e] items-center justify-center">
+      <View className="flex flex-1 pt-[58px]">
+        <ImageViewer placeholderImage={PlaceHolderImage} />
+      </View>
+      <StatusBar style="light" />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
