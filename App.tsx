@@ -1,13 +1,17 @@
 import { StatusBar } from "expo-status-bar";
-import { Platform, View } from "react-native";
+import { Platform, View, LogBox } from "react-native";
 // @ts-ignore
 import PlaceHolderImage from "./assets/images/background-image.png";
 import ImageViewer from "./components/ImageViewer";
 import Button from "./components/Button";
 import * as ImagePicker from "expo-image-picker";
 import "./styles/tailwind.css"
+import { useEffect, useState } from "react";
+
+LogBox.ignoreLogs(['Warning: ...']);
 
 export default function App(){
+  const [selectedImage, setSelectedImage] = useState<any>(null);
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true, quality: 1
@@ -15,17 +19,22 @@ export default function App(){
 
     console.log("Hello World")
     if(!result.canceled){
-      console.log(result);
+      setSelectedImage(result.assets[0].uri);
     }else{
       alert('You did not select any image.')
     }
   };
 
-  
+  useEffect(()=>{
+    console.log("Hi there");
+  }, []);
   return (
     <View className="flex-[1] bg-[#25292e] items-center justify-center">
       <View className="flex-[1] pt-[58px]">
-        <ImageViewer placeholderImage={PlaceHolderImage} />
+        <ImageViewer 
+          placeholderImage={PlaceHolderImage} 
+          selectedImage={selectedImage}
+        />
       </View>
       <View className={`flex-[1/3] flex-col items-center justify-center`}>
         <Button onPress={pickImageAsync} theme="primary" label="Choose a photo" />

@@ -24,7 +24,7 @@ export default function({label, theme, onPress}:any){
     return (
         <View className='w-80 h-[68px] mx-5 items-center justify-center p-[3px]'>
             <Pressable className='rounded-[10px] w-full h-[100%] items-center justify-center flex-row'
-            onPress={()=>alert('You pressed a button.')}
+            onPress={()=>{console.log("Hello World"); return alert('You pressed a button.')}}
             >
                 <Text className='text-white text-base'>{label}</Text>
             </Pressable>
