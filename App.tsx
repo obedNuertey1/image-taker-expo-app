@@ -7,6 +7,8 @@ import Button from "./components/Button";
 import * as ImagePicker from "expo-image-picker";
 import "./styles/tailwind.css"
 import { useEffect, useState } from "react";
+import CircleButton from "./components/CircleButton";
+import IconButton from "./components/IconButton";
 
 LogBox.ignoreLogs(['Warning: ...']);
 
@@ -27,6 +29,18 @@ export default function App(){
     }
   };
 
+  const onReset = () => {
+    setShowAppOptions(false);
+  };
+
+  const onAddSticker = () => {
+    // we will implement this later
+  }
+
+  const onSaveImageAsync = async () => {
+    // we will implement this later
+  }
+
   useEffect(()=>{
     console.log("Hi there");
   }, []);
@@ -39,7 +53,13 @@ export default function App(){
         />
       </View>
       {showAppOptions ? (
-        <View />
+        <View className="optionsContainer absolute bottom-20">
+          <View className="optionsRow items-center flex-row">
+            <IconButton icon="refresh" label="Reset" onPress={onReset} />
+            <CircleButton onPress={onAddSticker}  />
+            <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
+          </View>
+        </View>
       ): (
         <View className={`flex-[1/3] flex-col items-center justify-center`}>
           <Button onPress={pickImageAsync} theme="primary" label="Choose a photo" />
