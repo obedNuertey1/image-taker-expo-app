@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 LogBox.ignoreLogs(['Warning: ...']);
 
 export default function App(){
+  const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -20,6 +21,7 @@ export default function App(){
     console.log("Hello World")
     if(!result.canceled){
       setSelectedImage(result.assets[0].uri);
+      setShowAppOptions(true);
     }else{
       alert('You did not select any image.')
     }
@@ -36,10 +38,14 @@ export default function App(){
           selectedImage={selectedImage}
         />
       </View>
-      <View className={`flex-[1/3] flex-col items-center justify-center`}>
-        <Button onPress={pickImageAsync} theme="primary" label="Choose a photo" />
-        <Button label="Use this photo" />
-      </View>
+      {showAppOptions ? (
+        <View />
+      ): (
+        <View className={`flex-[1/3] flex-col items-center justify-center`}>
+          <Button onPress={pickImageAsync} theme="primary" label="Choose a photo" />
+          <Button label="Use this photo" onPress={()=>setShowAppOptions(true)} />
+        </View>  
+      )}
       <StatusBar style="light" />
     </View>
   );
