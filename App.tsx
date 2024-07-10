@@ -13,14 +13,20 @@ import EmojiPicker from "./components/EmojiPicker";
 import EmojiList from "./components/EmojiList";
 import EmojiSticker from "./components/EmojiSticker";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
-import { styled } from "nativewind";
+import * as MediaLibrary from 'expo-media-library';
 
 
 export default function App(){
+  const [status, requestPermission] = MediaLibrary.usePermissions();
   const [pickedEmoji, setPickedEmoji] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
+
+  if(status === null){
+    requestPermission();
+  }
+
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true, quality: 1
