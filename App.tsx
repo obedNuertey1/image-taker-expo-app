@@ -10,10 +10,12 @@ import { useEffect, useState } from "react";
 import CircleButton from "./components/CircleButton";
 import IconButton from "./components/IconButton";
 import EmojiPicker from "./components/EmojiPicker";
+import EmojiList from "./components/EmojiList";
 
 LogBox.ignoreLogs(['Warning: ...']);
 
 export default function App(){
+  const [pickedEmoji, setPickedEmoji] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
@@ -73,7 +75,7 @@ export default function App(){
         </View>  
       )}
       <EmojiPicker isVisible={isModalVisible} onClose={onModalClose} >
-        {/* A list of emoji component will go here */}
+        <EmojiList onSelect={setPickedEmoji} onCloseModal={onModalClose} />
       </EmojiPicker>
       <StatusBar style="light" />
     </View>
