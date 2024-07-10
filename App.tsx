@@ -6,7 +6,7 @@ import ImageViewer from "./components/ImageViewer";
 import Button from "./components/Button";
 import * as ImagePicker from "expo-image-picker";
 import "./styles/tailwind.css"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CircleButton from "./components/CircleButton";
 import IconButton from "./components/IconButton";
 import EmojiPicker from "./components/EmojiPicker";
@@ -14,11 +14,13 @@ import EmojiList from "./components/EmojiList";
 import EmojiSticker from "./components/EmojiSticker";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import * as MediaLibrary from 'expo-media-library';
+import {captureRef} from 'react-native-view-shot';
 
 
 export default function App(){
   const [status, requestPermission] = MediaLibrary.usePermissions();
-  const [pickedEmoji, setPickedEmoji] = useState(null);
+  const imageRef = useRef();
+  const [pickedEmoji, setPickedEmoji] = useState<any>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
@@ -63,7 +65,8 @@ export default function App(){
   return (
     <GestureHandlerRootView className="flex-[1] bg-[#25292e] items-center">
       <View className="flex-[1] bg-[#25292e] items-center justify-center">
-        <View className="flex-[1] pt-[58px]">
+        {/* @ts-ignore */}
+        <View ref={imageRef} collapsable={false} className="flex-[1] pt-[58px]">
           <ImageViewer 
             placeholderImage={PlaceHolderImage} 
             selectedImage={selectedImage}
