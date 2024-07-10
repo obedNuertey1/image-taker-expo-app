@@ -9,10 +9,12 @@ import "./styles/tailwind.css"
 import { useEffect, useState } from "react";
 import CircleButton from "./components/CircleButton";
 import IconButton from "./components/IconButton";
+import EmojiPicker from "./components/EmojiPicker";
 
 LogBox.ignoreLogs(['Warning: ...']);
 
 export default function App(){
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const pickImageAsync = async () => {
@@ -34,11 +36,15 @@ export default function App(){
   };
 
   const onAddSticker = () => {
-    // we will implement this later
+    setIsModalVisible(true);
+  }
+
+  const onModalClose = () => {
+    setIsModalVisible(false);
   }
 
   const onSaveImageAsync = async () => {
-    // we will implement this later
+    // Will be implemented later
   }
 
   useEffect(()=>{
@@ -66,6 +72,9 @@ export default function App(){
           <Button label="Use this photo" onPress={()=>setShowAppOptions(true)} />
         </View>  
       )}
+      <EmojiPicker isVisible={isModalVisible} onClose={onModalClose} >
+        {/* A list of emoji component will go here */}
+      </EmojiPicker>
       <StatusBar style="light" />
     </View>
   );
