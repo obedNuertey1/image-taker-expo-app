@@ -29,6 +29,8 @@ export default function App(){
     requestPermission();
   }
 
+
+
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true, quality: 1
@@ -57,6 +59,19 @@ export default function App(){
 
   const onSaveImageAsync = async () => {
     // Will be implemented later
+    try{
+      const localUri = await captureRef(imageRef, {
+        height: 440,
+        quality: 1,
+      });
+
+      await MediaLibrary.saveToLibraryAsync(localUri);
+      if(localUri){
+        alert("Saved!");
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
 
   useEffect(()=>{
@@ -67,7 +82,8 @@ export default function App(){
       <View className="flex-[1] bg-[#25292e] items-center justify-center">
         {/* @ts-ignore */}
         <View ref={imageRef} collapsable={false} className="flex-[1] pt-[58px]">
-          <ImageViewer 
+          <ImageViewer
+            ref={imageRef}
             placeholderImage={PlaceHolderImage} 
             selectedImage={selectedImage}
           />
