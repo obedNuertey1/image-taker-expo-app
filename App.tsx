@@ -11,6 +11,7 @@ import CircleButton from "./components/CircleButton";
 import IconButton from "./components/IconButton";
 import EmojiPicker from "./components/EmojiPicker";
 import EmojiList from "./components/EmojiList";
+import EmojiSticker from "./components/EmojiSticker";
 
 LogBox.ignoreLogs(['Warning: ...']);
 
@@ -59,6 +60,7 @@ export default function App(){
           placeholderImage={PlaceHolderImage} 
           selectedImage={selectedImage}
         />
+        {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
       </View>
       {showAppOptions ? (
         <View className="optionsContainer absolute bottom-20">
